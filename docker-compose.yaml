@@ -1,0 +1,10 @@
+version: '3.0'
+ 
+services:
+   accountownerapp:
+     image: accountowner:alpinebuild
+     build:
+      context: .
+      dockerfile: Dockerfile.alpine-x64
+     ports:
+       - "8080:80"
