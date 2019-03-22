@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using System.IO;
 using NLog.Extensions.Logging;
 using Contracts;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace AccountOwnerServer
@@ -39,7 +40,8 @@ namespace AccountOwnerServer
 
             services.ConfigureRepositoryWrapper();
 
-            services.AddMvc();
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSwaggerGen(c =>
             {
