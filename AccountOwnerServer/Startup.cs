@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using System.IO;
 using NLog.Extensions.Logging;
 using Contracts;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace AccountOwnerServer
 {
@@ -20,7 +21,7 @@ namespace AccountOwnerServer
     {
         public Startup(IConfiguration configuration, ILoggerFactory loggerFactory)
         {
-            loggerFactory.ConfigureNLog(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+            loggerFactory.ConfigureNLog(Path.Combine(Directory.GetCurrentDirectory(), "nlog.config"));
             Configuration = configuration;
         }
 
@@ -39,6 +40,11 @@ namespace AccountOwnerServer
             services.ConfigureRepositoryWrapper();
 
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "AccountOwner API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -70,6 +76,13 @@ namespace AccountOwnerServer
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            app.UseSwagger();
+ 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "AccountOwner API V1");
+            });
         }
     }
 }
