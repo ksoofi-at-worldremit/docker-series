@@ -11,6 +11,7 @@ COPY ./Repository/Repository.csproj ./Repository/
 COPY ./Entities/Entities.csproj ./Entities/
 COPY ./LoggerService/LoggerService.csproj ./LoggerService/
 COPY ./Tests/Tests.csproj ./Tests/
+COPY ./Integration/Integration.csproj ./Integration/
 COPY ./AccountOwnerServer.sln .
 
 RUN dotnet restore
